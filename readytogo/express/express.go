@@ -21,7 +21,9 @@ func Express() {
         log.Fatalf("Failed to change directory to %s: %v", proj_name, err)
     }
 
-    dir_names := [5]string{"routes", "controllers", "middlewares", "models", "configs"}
+
+    dir_names := [5] string {"routes", "controllers", "middlewares", "models", "configs"}
+	file_names := [2] string {"server.js", "app.js"}
 
     for _, dir := range dir_names {
         if _, err := os.Stat(dir); os.IsNotExist(err) {
@@ -30,6 +32,15 @@ func Express() {
             }
         }
     }
+
+	for _, file := range file_names {
+		if _, err := os.Stat(file); os.IsNotExist(err) {
+			if _, err := os.Create(file); err != nil {
+				log.Printf("Failed to create file: %v", err)
+			}
+		}
+	}
+
     if err := os.Chdir("routes"); err != nil {
         log.Fatalf("Failed to change directory to routes: %v", err)
     }
