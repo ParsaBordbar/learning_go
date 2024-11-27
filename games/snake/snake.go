@@ -107,11 +107,11 @@ func move() {
 	snake = append([]Part{newHead}, snake[:len(snake)-1]...)
 }
 
-func main() {
-	// game loop
-	for {
-		move()      // Move the snake
-		time.Sleep(time.Millisecond * 100)
-		draw()      // Draw the updated game state
+	func main() {
+		// game loop
+		for {
+			move()      // Move the snake
+			time.Sleep(time.Millisecond * 100)
+			draw()      // Draw the updated game state
+		}
 	}
-}
