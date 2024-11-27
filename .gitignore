@@ -11,6 +11,7 @@
 # Ignore everything inside the readytogo directory
 readytogo/*
 !readytogo/express/
+!readytogo/python/
 
 # Allow specific files in the readytogo directory
 !readytogo/readyto.go
