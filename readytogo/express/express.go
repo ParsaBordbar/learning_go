@@ -1,16 +1,16 @@
 package express
 
 import (
-	"fmt"
+	// "fmt"
     "os"
     "log"
 )
 
-func Express() {
+func Express(proj_name string) {
 
-	var proj_name string
-	fmt.Print("Enter the Project name: ")
-	fmt.Scanf("%s", &proj_name)
+	// var proj_name string
+	// fmt.Print("Enter the Project name: ")
+	// fmt.Scanf("%s", &proj_name)
 
     if _, err := os.Stat(proj_name); os.IsNotExist(err) {
         if err := os.Mkdir(proj_name, 0755); err != nil {
