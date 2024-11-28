@@ -26,6 +26,7 @@ func Python() {
 		"tests": {"test_main.py"},
 		"data":  {"input.csv", "output.json"},
 		"docs":  {"README.md", "LICENSE"},
+		".":     {"requirements.txt", "setup.py"},
 	}
 
 	// make directories and files
@@ -41,9 +42,18 @@ func Python() {
 		}
 
 		for file := range dir_and_files[dir] {
-			if _, err := os.Stat(dir_and_files[dir][file]); os.IsNotExist(err) {
-				if _, err := os.Create(dir_and_files[dir][file]); err != nil {
-					log.Printf("Failed to create file %v: %v", dir_and_files[dir][file], err)
+			if _, err := os.Stat(dir_and_files[dir][file]); err != nil {
+				os.Create(dir_and_files[dir][file])
+
+				switch dir_and_files[dir][file] {
+				case "main.py":
+					// Append string to file
+					f, _ := os.OpenFile("main.py", os.O_APPEND|os.O_WRONLY, 0644)
+					init_code := []string{"if __name__ == \"__main__\":", "\tpass"}
+					for _, v := range init_code {
+						fmt.Fprintln(f, v)
+					}
+
 				}
 			}
 		}
