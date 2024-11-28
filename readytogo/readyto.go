@@ -5,13 +5,11 @@ import (
 	"fmt"
 	"os"
 	"readytogo/express"
-	"readytogo/file_tree"
 	"readytogo/python"
+	// "readytogo/file_tree"
 )
 
 func main() {
-	// var kind string
-	// fmt.Scanf("%s", &kind)
 
 	pythonFlag := flag.NewFlagSet("python", flag.ExitOnError)
 	pyProjectName := pythonFlag.String("name", "pythonProject", "name")
@@ -24,17 +22,29 @@ func main() {
 		os.Exit(1)
 	}
 
+
+
 	switch os.Args[1] {
-		case "express":
+		case "express":{
 			expressFlag.Parse(os.Args[2:])
-		express.Express(*exProjectName)
-	case "python":
-		pythonFlag.Parse(os.Args[2:])
-		python.Python(*pyProjectName)
-		case "tree": {
-			root := "."
-			fmt.Println("File Tree:")
-			file_tree.PrintTree(root, "  ")
+			express.Express(*exProjectName)
 		}
+		case "python": {
+			pythonFlag.Parse(os.Args[2:])
+			python.Python(*pyProjectName)
+		}
+		// case "tree":
+		// 	root := "."
+		// 	fmt.Println("File Tree:")
+		// 	file_tree.PrintTree(root, "  ")
 	}
+
+	fmt.Println(`
+	██████╗ ███████╗ █████╗ ██████╗ ██╗   ██╗████████╗ ██████╗  ██████╗  ██████╗ 
+	██╔══██╗██╔════╝██╔══██╗██╔══██╗╚██╗ ██╔╝╚══██╔══╝██╔═══██╗██╔════╝ ██╔═══██╗
+	██████╔╝█████╗  ███████║██║  ██║ ╚████╔╝    ██║   ██║   ██║██║  ███╗██║   ██║
+	██╔══██╗██╔══╝  ██╔══██║██║  ██║  ╚██╔╝     ██║   ██║   ██║██║   ██║██║   ██║
+	██║  ██║███████╗██║  ██║██████╔╝   ██║      ██║   ╚██████╔╝╚██████╔╝╚██████╔╝
+	╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═════╝    ╚═╝      ╚═╝    ╚═════╝  ╚═════╝  ╚═════╝ 
+	` + "\n\n")
 }
