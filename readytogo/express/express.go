@@ -17,13 +17,16 @@ func Express(proj_name string) {
     // )
 
     // To implement: change output to desired route in next update
-    if err := os.Chdir("output"); err != nil {
-        log.Fatalf("Failed to change directory to %s: %v", "output", err)
-    }
+    outputDir := "output"
 
-	// var proj_name string
-	// fmt.Print("Enter the Project name: ")
-	// fmt.Scanf("%s", &proj_name)
+    if _, err := os.Stat(outputDir); os.IsNotExist(err) {
+        if err := os.Mkdir(outputDir, 0755); err != nil {
+            log.Fatalf("Failed to create project directory: %v", err)
+        }
+    }
+    if err := os.Chdir(outputDir); err != nil {
+        log.Fatalf("Failed to change directory to %s: %v", outputDir, err)
+    }
     
     // Create project directory if not exists
     if _, err := os.Stat(proj_name); os.IsNotExist(err) {
@@ -40,11 +43,6 @@ func Express(proj_name string) {
     terminal.Stdout = os.Stdout
     terminal.Run()
 
-    // Install express, nodemon, joi, mongoose, helmet, morgan, axios
-    // var packages = [7] string {"express", "nodemon", "joi", "mongoose", "helmet", "morgan", "axios"} 
-    // for _, package := range packages {
-
-    // }
     terminal2 := exec.Command("npm", "i" ,"express nodemon joi mongoose helmet morgan axios") 
     terminal2.Stdout = os.Stdout
     terminal2.Run()
