@@ -13,10 +13,10 @@ func main() {
 	// fmt.Scanf("%s", &kind)
 
 	pythonFlag := flag.NewFlagSet("python", flag.ExitOnError)
-	pyProjectName := pythonFlag.String("name", "", "pythonProject")
+	pyProjectName := pythonFlag.String("name", "pythonProject", "name")
 
 	expressFlag := flag.NewFlagSet("express", flag.ExitOnError)
-	exProjectName := expressFlag.String("name", "", "expressProject")
+	exProjectName := expressFlag.String("name", "expressProject", "name")
 
 	if len(os.Args) < 2 {
 		fmt.Println("Please enter an argument. [python, express, ...(Coming soon)]")
