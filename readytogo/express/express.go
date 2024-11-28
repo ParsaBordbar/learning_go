@@ -1,14 +1,14 @@
 package express
 
 import (
-	"fmt"
+	// "fmt"
     "os"
     "log"
     "os/exec"
 )
 
 // To implement: enums and arguments --flags for pure & ts
-func Express() {
+func Express(proj_name string) {
     
     // type flag string
     // const (
@@ -21,9 +21,9 @@ func Express() {
         log.Fatalf("Failed to change directory to %s: %v", "output", err)
     }
 
-	var proj_name string
-	fmt.Print("Enter the Project name: ")
-	fmt.Scanf("%s", &proj_name)
+	// var proj_name string
+	// fmt.Print("Enter the Project name: ")
+	// fmt.Scanf("%s", &proj_name)
     
     // Create project directory if not exists
     if _, err := os.Stat(proj_name); os.IsNotExist(err) {

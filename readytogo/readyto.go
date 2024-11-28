@@ -1,17 +1,36 @@
 package main
 
 import (
+	"flag"
 	"fmt"
-    "readytogo/express" 
+	"os"
+	"readytogo/express"
 	"readytogo/file_tree"
+	"readytogo/python"
 )
 
 func main() {
-	var kind string
-	fmt.Scanf("%s", &kind)
-	switch kind {
+	// var kind string
+	// fmt.Scanf("%s", &kind)
+
+	pythonFlag := flag.NewFlagSet("python", flag.ExitOnError)
+	pyProjectName := pythonFlag.String("name", "pythonProject", "name")
+
+	expressFlag := flag.NewFlagSet("express", flag.ExitOnError)
+	exProjectName := expressFlag.String("name", "expressProject", "name")
+
+	if len(os.Args) < 2 {
+		fmt.Println("Please enter an argument. [python, express, ...(Coming soon)]")
+		os.Exit(1)
+	}
+
+	switch os.Args[1] {
 		case "express":
-			express.Express()		
+			expressFlag.Parse(os.Args[2:])
+		express.Express(*exProjectName)
+	case "python":
+		pythonFlag.Parse(os.Args[2:])
+		python.Python(*pyProjectName)
 		case "tree": {
 			root := "."
 			fmt.Println("File Tree:")
