@@ -21,32 +21,35 @@ func Python() {
 		log.Fatalf("Failed to change directory to %s: %v", proj_name, err)
 	}
 
-	file_names := [2]string{"main.py", "requirements.txt"}
-	dir_names := []string{"src", "tests", "data", "docs"}
+	dir_and_files := map[string][]string{
+		"src":   {"main.py"},
+		"tests": {"test_main.py"},
+		"data":  {"input.csv", "output.json"},
+		"docs":  {"README.md", "LICENSE"},
+	}
 
-	// make directories
-	for _, dir := range dir_names {
+	// make directories and files
+	for dir := range dir_and_files {
 		if _, err := os.Stat(dir); os.IsNotExist(err) {
 			if err := os.Mkdir(dir, 0755); err != nil {
 				log.Printf("Failed to create directory %s: %v", dir, err)
 			}
 		}
-	}
 
-	// make files
-	for i := 0; i < 2; i++ {
-		if _, err := os.Stat(file_names[i]); err != nil {
-			os.Create(file_names[i])
+		if err := os.Chdir(dir); err != nil {
+			log.Fatalf("Failed to change directory to %s: %v", proj_name, err)
+		}
 
-			switch file_names[i] {
-			case "main.py":
-				// Append string to file
-				f, _ := os.OpenFile("main.py", os.O_APPEND|os.O_WRONLY, 0644)
-				init_code := []string{"if __name__ == \"__main__\":", "\tpass"}
-				for _, v := range init_code {
-					fmt.Fprintln(f, v)
+		for file := range dir_and_files[dir] {
+			if _, err := os.Stat(dir_and_files[dir][file]); os.IsNotExist(err) {
+				if _, err := os.Create(dir_and_files[dir][file]); err != nil {
+					log.Printf("Failed to create file %v: %v", dir_and_files[dir][file], err)
 				}
 			}
+		}
+
+		if err := os.Chdir(".."); err != nil {
+			log.Fatalf("Failed to change directory to %s: %v", proj_name, err)
 		}
 	}
 }
