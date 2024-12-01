@@ -43,14 +43,17 @@ func Express(proj_name string) {
     terminal.Stdout = os.Stdout
     terminal.Run()
 
-    terminal2 := exec.Command("npm", "i" ,"express nodemon joi mongoose helmet morgan axios") 
+    terminal2 := exec.Command("npm", "install", "express", "nodemon", "joi", "mongoose", "helmet", "morgan", "axios")
     terminal2.Stdout = os.Stdout
-    terminal2.Run()
-    
+    terminal2.Stderr = os.Stderr
+    err := terminal2.Run()
+    if err != nil {
+        log.Printf("Error installing packages: %v\n", err)
+    }
 
     // Create Sub-dir and files if not exist
     dir_names := [5] string {"routes", "controllers", "middlewares", "models", "configs"}
-	file_names := [2] string {"server.js", "app.js"}
+	file_names := [2] string {"index.js", "app.js"}
 
     // Create sub-dir
     for _, dir := range dir_names {
