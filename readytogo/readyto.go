@@ -6,7 +6,7 @@ import (
 	"os"
 	"readytogo/express"
 	"readytogo/python"
-	// "readytogo/file_tree"
+	"readytogo/file_tree"
 )
 
 func main() {
@@ -15,19 +15,25 @@ func main() {
 	pyProjectName := pythonFlag.String("name", "pythonProject", "name")
 
 	expressFlag := flag.NewFlagSet("express", flag.ExitOnError)
-	exProjectName := expressFlag.String("name", "expressProject", "name")
+	expressProjectName := expressFlag.String("name", "expressProject", "name")
+	expressPrew := expressFlag.Bool("prew", false, "preview the file tree of an express app" )
 
 	if len(os.Args) < 2 {
 		fmt.Println("Please enter an argument. [python, express, ...(Coming soon)]")
 		os.Exit(1)
 	}
 
-
-
 	switch os.Args[1] {
 		case "express":{
 			expressFlag.Parse(os.Args[2:])
-			express.Express(*exProjectName)
+			if *expressPrew {
+				root := "." 
+				fmt.Println("File Tree:")
+				file_tree.PrintTree(root, "  ")
+				os.Exit(0)
+			} else {
+				express.Express(*expressProjectName)
+			}
 		}
 		case "python": {
 			pythonFlag.Parse(os.Args[2:])
