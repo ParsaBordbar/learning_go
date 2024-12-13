@@ -14,9 +14,11 @@ func PrintTree(root string, indent string) {
 	}
 
 	for _, entry := range entries {
-		fmt.Println(indent + "|-- " + entry.Name())
-		if entry.IsDir() {
-			PrintTree(filepath.Join(root, entry.Name()), indent+"    ")
+		if entry.Name() != "node_modules" {
+			fmt.Println(indent + "|-- " + entry.Name())
+			if entry.IsDir() {
+				PrintTree(filepath.Join(root, entry.Name()), indent+"    ")
+			}
 		}
 	}
 }
