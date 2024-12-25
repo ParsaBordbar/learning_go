@@ -6,7 +6,7 @@ import (
 )
 
 func main () {
-	fmt.Printf("Running server on Port 8080")
+	fmt.Printf("Running server on Port 8080...")
 	
 	mux := http.NewServeMux()
 
